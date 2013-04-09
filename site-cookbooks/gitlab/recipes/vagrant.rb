@@ -55,6 +55,15 @@ git node['gitlab']['app_home'] do
   user 'root'
 end
 
+# Create /vagrant/repositories/
+directory node['gitlab']['repos_path'] do
+  owner node['gitlab']['host_user_id']
+  group node['gitlab']['host_group_id']
+  mode "0755"
+  recursive true
+  action :create
+end
+
 # Create tmp/repositories/
 #
 # Uses host user/group id to workaround Vagrant's inability to set the NFS
